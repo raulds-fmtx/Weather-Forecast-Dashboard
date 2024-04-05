@@ -13,31 +13,80 @@ function handleQuery(event) {
     fetchRequest(city,false);
 }
 
-function parseWeatherData(data) {
-    return 0;
+function parseForecastData(data) {
+    let forecastData = [];
+    for (let i = 0; i < data.list.length; ++i) {
+        let weather;
+        for (let j = 0; j < DATES.length; ++j) {
+            timestamp = dayjs.unix(data.list[i].dt).format('MM/DD/YYYY-HH');
+            if (DATES[j] + '-13' === timestamp) {
+                weather = {
+                    date: dayjs.unix(data.list[i].dt).format('M/D/YYYY'),
+                    temp: data.list[i].main.temp,
+                    wind: data.list[i].wind.speed,
+                    humidity: data.list[i].main.humidity,
+                    weatherIcon: data.list[i].weather[0].icon
+                };
+                forecastData.push(weather);
+            }
+        }
+    }
+    return forecastData;
 }
 
-function displayDashboard(data,dateIndex,date,city) {
+function displayForecast(data) {
+    forecastData = parseForecastData(data);
+    for (let i = 0; i < 5; ++i) {
+        $(`#date-${i+1}`).text(`${forecastData[i].date}`);
+        $(`#icon-${i+1}`).attr('src',`https://openweathermap.org/img/wn/${forecastData[i].weatherIcon}@2x.png`);
+        $(`#temp-${i+1}`).text(`Temp: ${forecastData[i].temp} °F`);
+        $(`#wind-${i+1}`).text(`Wind: ${forecastData[i].wind} MPH`);
+        $(`#humidity-${i+1}`).text(`Humidity: ${forecastData[i].humidity} %`);
+    }
+}
+
+function parseWeatherData(data) {
+    let weather = {
+        date: dayjs.unix(data.dt).format('M/D/YYYY'),
+        temp: data.main.temp,
+        wind: data.wind.speed,
+        humidity: data.main.humidity,
+        weatherIcon: data.weather[0].icon
+    };
+    return weather
+} 
+
+function displayWeather(data,city) {
     weatherData = parseWeatherData(data);
-    // Display data
+    $('#main-display').text(`${city} (${weatherData.date})`);
+    $('#main-icon').attr('src',`https://openweathermap.org/img/wn/${weatherData.weatherIcon}@2x.png`);
+    $('#temp-main').text(`Temp: ${weatherData.temp} °F`);
+    $('#wind-main').text(`Wind: ${weatherData.wind} MPH`);
+    $('#humidity-main').text(`Humidity: ${weatherData.humidity} %`);
 }
 
 function fetchRequest(city,render) {
-    for (let i = 0; i < DATES.length; ++i) {
-        // Create fetch request
-        let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&day=${DATES[i]}&units=imperial`;
-        // Perform fetch request
-        fetch(url).then(function (response) {
-            if (response.ok) { // If no errors occur
-                response.json().then(function (data){
-                    // Add city to search history
-                    if (i === 0 && render === false) addToHistory(city);
-                    // Display weather information
-                    displayDashboard(data,i,DATES[i],city);
-                });
-            }
-        });
-    }
+    let urlWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=imperial`;
+    let urlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=imperial`;
+    // Perform fetch request
+    fetch(urlWeather).then(function (response) {
+        if (response.ok) { // If no errors occur
+            response.json().then(function (data){
+                // Add city to search history
+                if (render === false) addToHistory(city);
+                // Display weather information
+                displayWeather(data,city);
+            });
+        }
+    });
+    fetch(urlForecast).then(function (response) {
+        if (response.ok) { // If no errors occur
+            response.json().then(function (data){
+                // Display forecast information
+                displayForecast(data);
+            });
+        }
+    });
 }
 
 function addToHistory(city) {
@@ -92,7 +141,7 @@ function renderDashboard() {
 function getDates() {
     let dates = []
     for (let i = 0; i < 6; ++i) {
-        dates.push(dayjs().add(i,'day').format('YYYY-MM-DD'));
+        dates.push(dayjs().add(i,'day').format('MM/DD/YYYY'));
     }
     return dates
 }
