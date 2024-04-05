@@ -2,19 +2,17 @@
 
 ## Description
 
-A task board that enables users to create a responsive todo list built with BootStrap and jQuery UI. A user can create a task and drag & drop it into one of the three categories shown on screen. The styling of the task will change automatically depending on the due-date and category in which the task is placed. In addition, task data will be automatically saved to local storage upon creation, and will appear in their respective categories upon refreshing the page.
+A dashboard that enables users to search the name of a city and view the current weather conditions as well as the weather conditions at mid-day over the next five days. The dashboard additionally displays the ten most recent searches made by the user. The main display shows the city name, current date, and weather conditions. This webpage uses the Open Weather API to fetch information about current weather conditions and for weather forecast over a five day period. Queries by the user are saved to local storage, and reload upon refresh of the page.
 
 ![Screenshot of the deployed website.](./assets/images/deployed-site-screenshot.png)
 
 ## Link
 
-[Click Here to Deploy Page](https://raulds-fmtx.github.io/To-Do-List/)
+[Click Here to Deploy Page]()
 
 ## Usage
 
-To create a task, click the 'Add Task' button. A modal window will appear in which a user may enter the specified information and click 'Add Task' to add your task to the webpage. To exit the modal without entering a task, click on the exit button in the top-right corner of the modal.
-
-To change the category of the task simply click and drag it over the target category. Upon dropping the task card, the styling will be updated automatically to reflect the change.
+To view the weather conditions and forecast for a given city, type the city name into the search bar and click search.
 
 ## Credits
 
