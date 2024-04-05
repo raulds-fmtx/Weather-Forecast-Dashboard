@@ -5,34 +5,55 @@ const DATES = getDates();
 
 function handleQuery(event) {
     event.preventDefault();
+
+    // Get the city name
     let city = $('#city-search').val();
 
-    if (city === '') {
-        console.log('Error: Please enter a city name.');
-    } else {
-        $('#city-search').prop('value','');
-        queryFetch(city);
+    
+    $('#city-search').prop('value','');
+    addToHistory(city);
+    queryFetch(city);
+}
+
+function parseWeatherData(data) {
+    return 0;
+}
+
+function displayDashboard(data,dateIndex,date) {
+    weatherData = parseWeatherData(data);
+    // Display data
+}
+
+function queryFetch(city) {
+    for (let i = 0; i < DATES.length; ++i) {
+        let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&day=${DATES[i]}&units=imperial`;
+        fetch(url).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data){
+                    displayDashboard(data,i,DATES[i]);
+                });
+            }
+        });
     }
 }
 
-function renderDashboard(data) {
-
-}
-
 function addToHistory(city) {
-
+    // Log searched city
+    createHistoryItem(city);
 }
 
-function renderHistory(data) {
-    console.log(data);
+function createHistoryItem(city) {
 }
 
-function queryFetch(city,date) {
+function renderHistory() {
+    // Get all searched cities
+    // loop createHistoryItem
 }
 
-function verifyQuery(weatherData) {
-    return true;
-} 
+function renderDashboard() {
+    // Get last searched city
+    // queryFetch city
+}
 
 function getDates() {
     let dates = []
@@ -42,16 +63,10 @@ function getDates() {
     return dates
 }
 
-// Submission Handler (Query Server, Fill Dashboard, Manage History)
-// Query Verification Function (Verify city searched is valid)
-// Server Query Function (Query the server and organize queried data into usable form)
-// Create/Edit History Function (Saves Search to local storage and calls function to create history item)
-// Create History jQuery Item Function (Create search history item)
-// Render Forecast information to dashboard
-// Render Search History and last searched item function
-
 $(document).ready(function () {
     // Render Search history and last searched item
-    $('#submit-query').on('click', handleQuery);
+    renderHistory();
+    renderDashboard();
     // Enable Search for City Upon submission
+    $('#submit-query').on('click', handleQuery);
 });
