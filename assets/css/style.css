@@ -1,3 +1,11 @@
-.forecast-card {
+.dark-card {
     background-color: #1b2842;
+}
+
+.history-card {
+    background-color: #bababa;
+}
+
+.btn {
+    background-color: #6ebfd4;
 }

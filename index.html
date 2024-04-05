@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <header class="d-flex justify-content-center bg-primary bg-gradient p-2">
+  <header class="d-flex justify-content-center dark-card bg-gradient p-2">
     <h1 class="text-light m-2">Weather Dashboard</h1>
   </header>
   <body class="row">
@@ -23,10 +23,10 @@
             <h2 class="mb-2">Search for a City:</h2>
             <input type="text" class="form-control mb-2" id="city-search" placeholder="City Name">
             <div class="d-grid">
-                <button type="button" class="btn btn-info mb-2" id="submit-query">Search</button>
+                <button type="button" class="btn mb-2" id="submit-query">Search</button>
             </div>
         </div>
-        <div>
+        <div id="history-container"> 
 
         </div>
     </div>
@@ -44,7 +44,7 @@
         <div class="m-3">
             <h3>5 Day Forecast</h3>
             <div class="row">
-                <div class="card text-light m-3 p-0 col-2 forecast-card bg-gradient">
+                <div class="card text-light m-3 p-0 col-2 dark-card bg-gradient">
                     <div class="card-header">
                         <h4 id="'date-1"></h4>
                     </div>
@@ -55,7 +55,7 @@
                         <p id="humidity-1"></p>
                     </div>
                 </div>
-                <div class="card text-light m-3 p-0 col-2 forecast-card bg-gradient">
+                <div class="card text-light m-3 p-0 col-2 dark-card bg-gradient">
                     <div class="card-header">
                         <h4 id="'date-2"></h4>
                     </div>
@@ -66,7 +66,7 @@
                         <p id="humidity-2"></p>
                     </div>
                 </div>
-                <div class="card text-light m-3 p-0 col-2 forecast-card bg-gradient">
+                <div class="card text-light m-3 p-0 col-2 dark-card bg-gradient">
                     <div class="card-header">
                         <h4 id="'date-3"></h4>
                     </div>
@@ -77,7 +77,7 @@
                         <p id="humidity-3"></p>
                     </div>
                 </div>
-                <div class="card text-light m-3 p-0 col-2 forecast-card bg-gradient">
+                <div class="card text-light m-3 p-0 col-2 dark-card bg-gradient">
                     <div class="card-header">
                         <h4 id="'date-4"></h4>
                     </div>
@@ -88,7 +88,7 @@
                         <p id="humidity-4"></p>
                     </div>
                 </div>
-                <div class="card text-light m-3 p-0 col-2 forecast-card bg-gradient">
+                <div class="card text-light m-3 p-0 col-2 dark-card bg-gradient">
                     <div class="card-header">
                         <h4 id="'date-5"></h4>
                     </div>
