@@ -8,7 +8,7 @@ A dashboard that enables users to search the name of a city and view the current
 
 ## Link
 
-[Click Here to Deploy Page]()
+[Click Here to Deploy Page](https://raulds-fmtx.github.io/Weather-Forecast-Dashboard/)
 
 ## Usage
 
